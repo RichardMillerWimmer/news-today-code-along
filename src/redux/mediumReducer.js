@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-// import { response } from 'express';
-
 
 const initialState = {
     loading: false,
@@ -11,7 +9,8 @@ const initialState = {
 const REQUEST_ARTICLES = 'REQUEST_ARTICLES';
 
 export const requestArticles = () => {
-    let articles = axios.get('/api/hacker-news').then(res => res.data);
+    let articles = axios.get('/api/medium')
+        .then(res => res.data);
     return {
         type: REQUEST_ARTICLES,
         payload: articles
@@ -21,13 +20,10 @@ export const requestArticles = () => {
 export default function (state = initialState, action) {
     switch (action.type) {
         case REQUEST_ARTICLES + '_PENDING':
-            return { ...state, loading: true };
+            return { ...state, loading: true }
         case REQUEST_ARTICLES + '_FULFILLED':
-            return { loading: false, articles: action.payload }
-        case REQUEST_ARTICLES + '_REJECTED':
-            return { ...state, loading: false }
-        default:
-            return state;
+            return { ...state, loading: false, articles: action.payload }
+        default: return state;
     }
-}
+};
 
